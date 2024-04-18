@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pets_admin/core/utils/navigation_helper.dart';
 import 'package:pets_admin/screens/products/create_product_screen.dart';
+import 'package:pets_admin/screens/products/edit_product_screen.dart';
 
 class ProductsScreen extends StatelessWidget {
   ProductsScreen({super.key});
@@ -48,6 +49,10 @@ class ProductsScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
+                    onTap: () {
+                      NavigationHelper.goTo(
+                          context, EditProductScreen(item: data[index]));
+                    },
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(data[index]["picture"]),
                     ),

@@ -24,6 +24,8 @@ class _CreateClinicScreenState extends State<CreateClinicScreen> {
 
   String? chosenType;
 
+  var loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,32 +78,42 @@ class _CreateClinicScreenState extends State<CreateClinicScreen> {
               },
             ),
             const SizedBox(height: 100),
-            DefaultButton(
-              label: "Create",
-              onPressed: () async {
-                final storageRef = FirebaseStorage.instance.ref();
-                final mountainImagesRef =
-                    storageRef.child("images/${image!.name}");
-                String imageString = "";
-                try {
-                  var response =
-                      await mountainImagesRef.putFile(File(image!.path));
+            loading
+                ? const Center(child: CircularProgressIndicator())
+                : DefaultButton(
+                    label: "Create",
+                    onPressed: () async {
+                      setState(() {
+                        loading = true;
+                      });
+                      final storageRef = FirebaseStorage.instance.ref();
+                      final mountainImagesRef =
+                          storageRef.child("images/${image!.name}");
+                      String imageString = "";
+                      try {
+                        var response =
+                            await mountainImagesRef.putFile(File(image!.path));
 
-                  imageString = await response.ref.getDownloadURL();
-                } catch (e) {
-                  print(e.toString());
-                  // ...
-                }
-                FirebaseFirestore.instance.collection("clincsPharamacies").add({
-                  "name": nameController.text,
-                  "category": chosenType,
-                  "location": locationController.text,
-                  "picture": imageString,
-                }).then((value) {
-                  Navigator.pop(context);
-                });
-              },
-            ),
+                        imageString = await response.ref.getDownloadURL();
+                      } catch (e) {
+                        print(e.toString());
+                        // ...
+                      }
+                      FirebaseFirestore.instance
+                          .collection("clincsPharamacies")
+                          .add({
+                        "name": nameController.text,
+                        "category": chosenType,
+                        "location": locationController.text,
+                        "picture": imageString,
+                      }).then((value) {
+                        Navigator.pop(context);
+                      });
+                      setState(() {
+                        loading = false;
+                      });
+                    },
+                  ),
           ],
         ),
       ),

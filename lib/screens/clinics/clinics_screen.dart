@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pets_admin/core/utils/navigation_helper.dart';
 import 'package:pets_admin/screens/clinics/create_clinic_screen.dart';
+import 'package:pets_admin/screens/clinics/edit_clinic_screen.dart';
 
 class ClinicsScreen extends StatelessWidget {
   ClinicsScreen({super.key});
@@ -47,6 +48,10 @@ class ClinicsScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
+                    onTap: () {
+                      NavigationHelper.goTo(
+                          context, EditClinicScreen(item: data[index]));
+                    },
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(data[index]["picture"]),
                     ),
