@@ -4,6 +4,7 @@ import 'package:pets_admin/screens/clinics/clinics_screen.dart';
 import 'package:pets_admin/screens/doctors/doctors_screen.dart';
 import 'package:pets_admin/screens/knowledges/knowledges_screen.dart';
 import 'package:pets_admin/screens/products/products_screen.dart';
+import 'package:pets_admin/screens/vipRequests/vip_requests_screen.dart';
 
 import '../core/utils/navigation_helper.dart';
 import 'petCategories/pets_categories_screen.dart';
@@ -74,6 +75,16 @@ class HomeScreen extends StatelessWidget {
               NavigationHelper.goTo(context, ClinicsScreen());
             },
             title: const Text("Clinics / Pharmacies"),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              size: 12,
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              NavigationHelper.goTo(context, VipRequestsScreem());
+            },
+            title: const Text("Vip Requests"),
             trailing: const Icon(
               Icons.arrow_forward_ios,
               size: 12,
