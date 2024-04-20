@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pets_admin/core/utils/navigation_helper.dart';
 import 'package:pets_admin/screens/knowledges/create_knowledge_screen.dart';
+import 'package:pets_admin/screens/knowledges/edit_knowledge_screen.dart';
 
 class KnowledgesScreen extends StatelessWidget {
   KnowledgesScreen({super.key});
@@ -45,12 +46,16 @@ class KnowledgesScreen extends StatelessWidget {
             return ListView.builder(
               itemBuilder: (context, index) {
                 return ListTile(
+                  onTap: () {
+                    NavigationHelper.goTo(
+                        context, EditKnowledgeScreen(item: data[index]));
+                  },
                   leading: CircleAvatar(
                     backgroundColor: Colors.deepOrange,
                     child: Text("${index + 1}"),
                   ),
                   title: Text("categoryName : " + data[index]["categoryName"]),
-                  subtitle: Text("text : " + data[index]["text"]),
+                  subtitle: Text("Message : " + data[index]["text"]),
                 );
               },
               itemCount: data.length,

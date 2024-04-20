@@ -52,7 +52,7 @@ class _CreateKnowledgeScreenState extends State<CreateKnowledgeScreen> {
           children: [
             DefaultTextField(
               controller: nameController,
-              label: "Name",
+              label: "Message",
             ),
             const SizedBox(height: 20),
             data.isEmpty
